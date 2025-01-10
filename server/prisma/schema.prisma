@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String
+  name        String
+  phone       String?
+  role        Role     @default(student)
+  verified    Boolean  @default(false)
+  firstLogin  Boolean  @default(true)
+  verifyToken String?  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Subject {
+  id        Int      @id @default(autoincrement())
+  name      String
+  nameAr    String
+  imageUrl  String
+  topics    Topic[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Topic {
+  id        Int      @id @default(autoincrement())
+  name      String
+  nameAr    String
+  quizTime  Int      @default(7200) // Default 2 hours in seconds
+  subjectId Int
+  subject   Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  questions Question[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id             Int      @id @default(autoincrement())
+  text           String   @db.Text
+  textAr         String   @db.Text
+  difficulty     String
+  options        Json
+  correctOptionId String
+  topicId        Int
+  topic          Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum Role {
+  admin
+  student
+}

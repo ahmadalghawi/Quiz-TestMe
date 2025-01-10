@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-arabic {
+  font-family: 'Noto Sans Arabic', 'Noto Kufi Arabic', sans-serif;
+  direction: rtl;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 dark:bg-dark-100 text-gray-900 dark:text-gray-100;
+  }
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-[length:200%_auto] animate-gradient;
+}
+
+.quiz-background {
+  background: linear-gradient(135deg, #3b82f6 0%, #2c4979 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .quiz-background {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.quiz-background::before,
+.quiz-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: 
+    /* Mathematical symbols */
+    radial-gradient(circle at 20% 30%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, #fff 1px, transparent 1px),
+    /* Geometric shapes */
+    linear-gradient(45deg, transparent 48%, #fff 48%, #fff 52%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, #fff 48%, #fff 52%, transparent 52%),
+    /* Numbers */
+    repeating-linear-gradient(0deg, transparent, transparent 50px, #fff 50px, #fff 51px),
+    repeating-linear-gradient(90deg, transparent, transparent 50px, #fff 50px, #fff 51px);
+  background-size: 
+    100px 100px,
+    120px 120px,
+    200px 200px,
+    200px 200px,
+    100px 100px,
+    100px 100px;
+  animation: patternMove 60s linear infinite;
+}
+
+.quiz-background::after {
+  opacity: 0.03;
+  background-position: 50px 50px;
+  animation: patternMove 40s linear infinite reverse;
+}
+
+.dark .quiz-background::before,
+.dark .quiz-background::after {
+  opacity: 0.025;
+}
+
+@keyframes patternMove {
+  0% {
+    background-position: 
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position: 
+      200px 200px,
+      -200px -200px,
+      400px 400px,
+      -400px -400px,
+      100px 100px,
+      -100px -100px;
+  }
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.dark .glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.5);
+}
+
+.option-card {
+  @apply relative overflow-hidden transition-all duration-300;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.dark .option-card {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.option-card::before {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: linear-gradient(45deg, #4299E1, #63B3ED);
+}
+
+.dark .option-card::before {
+  background: linear-gradient(45deg, #2563eb, #3b82f6);
+}
+
+.option-card:hover::before {
+  @apply opacity-5;
+}
+
+.option-card.selected {
+  background: linear-gradient(45deg, #2B6CB0, #4299E1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark .option-card.selected {
+  background: linear-gradient(45deg, #1d4ed8, #2563eb);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+.nav-blur {
+  background: rgba(26, 54, 93, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.dark .nav-blur {
+  background: rgba(15, 23, 42, 0.85);
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes floatBackground {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-100%, -100%) rotate(360deg);
+  }
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(66, 153, 225, 0.5),
+                0 0 10px rgba(66, 153, 225, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(66, 153, 225, 0.8),
+                0 0 20px rgba(66, 153, 225, 0.5);
+  }
+}
+
+.dark @keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(37, 99, 235, 0.5),
+                0 0 10px rgba(37, 99, 235, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.8),
+                0 0 20px rgba(37, 99, 235, 0.5);
+  }
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: shimmerAnimation 3s linear infinite;
+}
+
+.dark .shimmer::after {
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
